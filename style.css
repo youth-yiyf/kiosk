@@ -20,7 +20,7 @@ body {
 .container {
   width: 100vw;
   min-height: 100vh;
-  padding: 2vw 4vw;
+  padding:0;
   margin: 0; 
   background: white;
   box-shadow: 0 0 20px rgba(0,0,0,0.1);
