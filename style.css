@@ -584,15 +584,15 @@ body {
  .container {
     width: 100%;
     padding: 0 0px;
-    margin-left: -2px;
-    margin-right: px;
-    margin-top: -16px; /* 위로 20px 올림, 값은 조절 가능 */
+    margin-left: -1px;
+    margin-right: 0px;
+    margin-top: 10px; /* 위로 20px 올림, 값은 조절 가능 */
   }
 
   .welcome-emoji {
-    margin-right: 3px;
+    margin-right: 0px;
     font-size: 1em; /* 필요시 크기도 조정 */
-    top: -3px; /* 위로 10px 올림, 값은 조절 가능 */
+    top: 3px; /* 위로 10px 올림, 값은 조절 가능 */
   }
   }
   
