@@ -157,7 +157,7 @@ body {
 
 .welcome-buttons {
   position: absolute;
-  bottom: 200px;
+  bottom: 500px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;             /* 반드시 있어야 함 */
