@@ -172,10 +172,10 @@ body {
 
 .welcome-emoji {
   position: absolute;       
-  top: 250px;                /* 상단에서 30px 여백 */
+  top: 150px;                /* 상단에서 30px 여백 */
   left: 50%;                /* 가운데 정렬 */
   transform: translateX(-50%); /* 수평 중앙 정렬 */
-  font-size: 3em;
+  font-size: 1.5em;
   animation: bounce 2s infinite;
   z-index: 10;              /* 다른 요소 위에 보이도록 */
 }
