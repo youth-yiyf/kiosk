@@ -30,8 +30,8 @@ body {
   background: linear-gradient(135deg, #ff6b6b, #feca57);
   color: white;
   width: 100vw;          /* 가로도 꽉 채움 */
-  padding: 0;  /* 여백 제거 */
   height: 80px;
+  padding: 0;  /* 여백 제거 */
   text-align: center;
   position: relative;
   overflow: hidden;      /* 내부 요소가 넘치지 않게 */
