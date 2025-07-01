@@ -26,7 +26,7 @@ body {
   box-shadow: 0 0 20px rgba(0,0,0,0.1);
   position: relative;
   overflow: hidden !important;
-  transform: translateX(-17px); /* 100px 왼쪽 이동 */
+  transform: translateX(-16.5px); /* 100px 왼쪽 이동 */
 }
 
 .header {
@@ -560,6 +560,7 @@ body {
 @media (max-width: 480px) {
   .container {
     padding: 0 10px;
+    margin-left: 20px; 
   }
 
   .facilities-grid {
