@@ -1,18 +1,18 @@
 {
-  "name": "흥덕청소년문화의집 예약",
-  "short_name": "흥덕문집키오스크",
+  "name": "흥덕청소년문화의집",
+  "short_name": "흥덕-체크인",
   "start_url": "https://youth-yiyf.github.io/kiosk/",
   "display": "standalone",
   "background_color": "#fff",
   "theme_color": "#ff6b6b",
   "icons": [
     {
-      "src": "https://i.imgur.com/Ui18LaO.png",
+      "src": "https://i.imgur.com/EXKvVFU.jpeg",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://i.imgur.com/Ui18LaO.png",
+      "src": "https://i.imgur.com/EXKvVFU.jpeg",
       "sizes": "512x512",
       "type": "image/png"
     }
