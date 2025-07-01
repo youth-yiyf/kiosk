@@ -1,9 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
 
-* {
+html, body {
+  width: 100%;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 body {
@@ -15,11 +18,10 @@ body {
 }
 
 .container {
-  width: 100%;
-  max-width: none;
-  margin: 0; 
-  padding: 0;
+  width: 100vw;
   min-height: 100vh;
+  padding: 2vw 4vw;
+  margin: 0; 
   background: white;
   box-shadow: 0 0 20px rgba(0,0,0,0.1);
   position: relative;
@@ -27,35 +29,28 @@ body {
 }
 
 .header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 12vh;
+  height: 12vh;
   background: linear-gradient(135deg, #ff6b6b, #feca57);
   color: white;
-  width: 100%;
-  height: 120px;
-  padding: 20px;
   text-align: center;
   position: relative;
-  display: flex;              /* flex 컨테이너로 변경 */
-  flex-direction: column;
-  align-items: center;        /* 수직 가운데 정렬 */
-  justify-content: center;    /* 수평 가운데 정렬 */
-  overflow: hidden;
+  padding: 0;
 }
 
 .header::before {
   content: '';
   position: absolute;
-  top: 0;                     /* 상단에 딱 붙임 */
-  left: 0;
+  top: 10PX;
+  left: 0%;
   width: 100%;
-  height: 120px;
-  z-index: 0;                 /* 패턴이 텍스트 뒤에 오도록 */
+  height: 120px;;
   background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23pattern)"/></svg>');
   animation: float 20s infinite linear;
-}
-
-.header > * {
-  position: relative;
-  z-index: 1;                 /* 텍스트가 패턴 위에 오도록 */
 }
 
 @keyframes float {
@@ -63,18 +58,16 @@ body {
   100% { transform: translateX(-50px) translateY(-70px); }
 }
 
+.header h1, .header p {
+  margin: 0;
+}
+
 .header h1 {
-  font-size: 1.8em;
-  margin-bottom: 10px;
-  position: relative;
-  z-index: 1;
+  font-size: 2.2rem;
 }
 
 .header p {
-  font-size: 1em;
-  opacity: 0.9;
-  position: relative;
-  z-index: 1;
+  font-size: 1.1rem;
 }
 
 .back-btn, .home-btn {
@@ -167,16 +160,14 @@ body {
 
 .welcome-buttons {
   position: absolute;
-  bottom: 310px;
+  bottom: 500px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;             /* 반드시 있어야 함 */
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  gap: 3px;
   z-index: 100;              /* 다른 요소에 가려지지 않게 */
-  width: 220px;
-  
 }
 
 .welcome-emoji {
@@ -219,11 +210,11 @@ body {
   font-size: 2em;
   font-weight: bold; 
   color: #ffffff;
-  line-height: 1.1;
+  line-height: 1.6;
   text-align: center;
 
   position: absolute;
-  top: 40%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
@@ -312,11 +303,19 @@ body {
   box-shadow: 0 8px 25px rgba(112, 225, 245, 0.3);
 }
 
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .facilities-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-  margin-bottom: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .facility-card {
@@ -329,6 +328,9 @@ body {
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   border: 2px solid transparent;
+  max-width: 100%;
+  min-width: 0;
+  height: auto;
 }
 
 .facility-card:hover {
@@ -364,8 +366,6 @@ body {
 .facility-card.selected .facility-desc {
   color: rgba(255,255,255,0.9);
 }
-
-
 
 .form-group {
   margin-bottom: 25px;
@@ -830,4 +830,21 @@ body {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+  .header { min-height: 16vh; height: 16vh; }
+  .header h1 { font-size: 1.2rem; }
+  .facilities-grid { grid-template-columns: 1fr; }
+  .btn { font-size: 1rem; padding: 0.8em 1.2em; }
+}
+
+.btn {
+  font-size: 1.1rem;
+  padding: 1em 2em;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }
