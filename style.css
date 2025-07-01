@@ -585,20 +585,21 @@ body {
     width: 100%;
     padding: 0 0px;
     margin-left: 0px;
-    margin-top: -20px; /* 위로 20px 올림, 값은 조절 가능 */
+    margin-right: 0px;
+    margin-top: -10px; /* 위로 20px 올림, 값은 조절 가능 */
   }
 
   .welcome-emoji {
     margin-right: 3px;
     font-size: 1.5em; /* 필요시 크기도 조정 */
-    top: -10px; /* 위로 10px 올림, 값은 조절 가능 */
+    top: -4px; /* 위로 10px 올림, 값은 조절 가능 */
   }
   }
   
   .btn {
     width: 100%;
     font-size: 1em;
-    top: -10px; /* 위로 10px 올림, 값은 조절 가능 */
+    top: -60px; /* 위로 10px 올림, 값은 조절 가능 */
   }
   }
 
