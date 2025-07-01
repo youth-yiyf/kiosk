@@ -160,7 +160,7 @@ body {
 
 .welcome-buttons {
   position: absolute;
-  bottom: 280px;
+  bottom: 200px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;             /* 반드시 있어야 함 */
@@ -203,7 +203,7 @@ body {
   position: relative;
   width: 100%;
   height: calc(100vh - 120px);
-  background-image: url('https://i.imgur.com/qWMqJAu.jpeg');
+  background-image: url('https://i.imgur.com/SajIoww.jpeg');
   background-size: cover;
   background-position: center bottom;
   display: flex;
