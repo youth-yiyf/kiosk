@@ -29,9 +29,12 @@ body {
 .header {
   background: linear-gradient(135deg, #ff6b6b, #feca57);
   color: white;
-  padding: 0px;
+  height: 100vh;         /* 한 화면을 모두 채움 */
+  width: 100vw;          /* 가로도 꽉 채움 */
+  padding: 0;            /* 여백 제거 */
   text-align: center;
   position: relative;
+  overflow: hidden;      /* 내부 요소가 넘치지 않게 */
 }
 
 .header::before {
