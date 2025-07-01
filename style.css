@@ -29,25 +29,32 @@ body {
 .header {
   background: linear-gradient(135deg, #ff6b6b, #feca57);
   color: white;
-  width: 100%;          /* 가로도 꽉 채움 */
+  width: 100%;
   height: 120px;
-  padding: 0;  /* 여백 제거 */
+  padding: 0;
   text-align: center;
   position: relative;
-  align-items: center;  /* 수직 가운데 정렬 */
-  justify-content: center; /* 수평 가운데 정렬 */
-  overflow: hidden;      /* 내부 요소가 넘치지 않게 */
+  display: flex;              /* flex 컨테이너로 변경 */
+  align-items: center;        /* 수직 가운데 정렬 */
+  justify-content: center;    /* 수평 가운데 정렬 */
+  overflow: hidden;
 }
 
 .header::before {
   content: '';
   position: absolute;
-  top: 10PX;
-  left: 0%;
+  top: 0;                     /* 상단에 딱 붙임 */
+  left: 0;
   width: 100%;
-  height: 120px;;
+  height: 120px;
+  z-index: 0;                 /* 패턴이 텍스트 뒤에 오도록 */
   background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23pattern)"/></svg>');
   animation: float 20s infinite linear;
+}
+
+.header > * {
+  position: relative;
+  z-index: 1;                 /* 텍스트가 패턴 위에 오도록 */
 }
 
 @keyframes float {
@@ -159,7 +166,7 @@ body {
 
 .welcome-buttons {
   position: absolute;
-  bottom: 100px;
+  bottom: 300px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;             /* 반드시 있어야 함 */
