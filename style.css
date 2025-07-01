@@ -26,7 +26,7 @@ body {
   box-shadow: 0 0 20px rgba(0,0,0,0.1);
   position: relative;
   overflow: hidden !important;
-  transform: translateX(-4px); /* 100px 왼쪽 이동 */
+  transform: translateX(-40px); /* 100px 왼쪽 이동 */
 }
 
 .header {
@@ -161,7 +161,7 @@ body {
 
 .welcome-buttons {
   position: absolute;
-  bottom: 160px;
+  bottom: 180px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;             /* 반드시 있어야 함 */
@@ -173,7 +173,7 @@ body {
 
 .welcome-emoji {
   position: absolute;       
-  top: 240px;                /* 상단에서 30px 여백 */
+  top: 275px;                /* 상단에서 30px 여백 */
   left: 50%;                /* 가운데 정렬 */
   transform: translateX(-50%); /* 수평 중앙 정렬 */
   font-size: 1.5em;
