@@ -34,13 +34,15 @@ body {
   padding: 0;  /* 여백 제거 */
   text-align: center;
   position: relative;
+  align-items: center;  /* 수직 가운데 정렬 */
+  justify-content: center; /* 수평 가운데 정렬 */
   overflow: hidden;      /* 내부 요소가 넘치지 않게 */
 }
 
 .header::before {
   content: '';
   position: absolute;
-  top: 0%;
+  top: 10PX;
   left: 0%;
   width: 100%;
   height: 120px;;
