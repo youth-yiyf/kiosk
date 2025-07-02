@@ -906,14 +906,37 @@ function validateUserInfo() {
     return;
   }
   
-  // 전화번호 형식 검증 (하이픈 포함 13자리 또는 숫자만 11자리)
-  const phoneRegex = /^(010-\d{4}-\d{4}|010\d{8})$/;
-  if (!phoneRegex.test(userPhone)) {
-    alert('올바른 전화번호 형식을 입력해주세요.\n예: 010-1234-5678');
-    document.getElementById('user-phone').focus();
-    return;
-  }
+  // 전화번호 형식 검증 (숫자 9~11자리)
+  const phoneDigits = userPhone.replace(/[^0-9]/g, "");
+if (phoneDigits.length < 9 || phoneDigits.length > 11) {
+  alert('전화번호는 9~11자리 숫자여야 합니다. (집전화 or 휴대전화 등)');
+  document.getElementById('user-phone').focus();
+  return;
+}
   
   // 모든 검증을 통과하면 다음 화면으로 이동
+  showUserInfoConfirmScreen();
+}
+
+function showUserInfoConfirmScreen() {
+  // 입력값 가져오기
+  const userName = document.getElementById('user-name').value.trim();
+  const userBirth = document.getElementById('user-birth').value;
+  const userPhone = document.getElementById('user-phone').value.trim();
+
+  // 정보 표시
+  document.getElementById('confirm-info-box').innerHTML = `
+    <p><strong>이름:</strong> ${userName}</p>
+    <p><strong>생년월일:</strong> ${userBirth}</p>
+    <p><strong>전화번호:</strong> ${userPhone}</p>
+  `;
+  showScreen('user-info-confirm-screen');
+}
+
+function goToFacilityScreen() {
   showScreen('facility-screen');
+}
+
+function goBackToUserInfo() {
+  showScreen('user-info-screen');
 }
