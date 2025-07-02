@@ -1,0 +1,6 @@
+app: kiosk
+name: kiosk
+type: static
+
+static:
+  output_dir: .
