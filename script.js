@@ -113,9 +113,16 @@ function updateBackButton() {
 function selectFacility(element) {
   document.querySelectorAll('.facility-card').forEach(card => card.classList.remove('selected'));
   element.classList.add('selected');
-  selectedFacility = element.querySelector('.facility-name').textContent;
+  let name = element.querySelector('.facility-name').textContent.trim();
+  // 타임테이블과 동일하게 줄바꿈 포함 이름으로 변환
+  const facilityNameMap = {
+    '플레이스테이션': '플레이\n스테이션',
+    '보드게임': '보드\n게임',
+    '댄스연습실': '댄스\n연습실'
+  };
+  selectedFacility = facilityNameMap[name] || name;
   
-    if (selectedFacility === '댄스연습실' || selectedFacility === '강의실') {
+  if (selectedFacility === '댄스\n연습실' || selectedFacility === '강의실') {
     selectedFacilityNumber = ''; // 번호 없음
     showScreen('datetime-screen'); // 바로 날짜/시간 선택 화면으로 이동
   } else {
