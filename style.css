@@ -808,11 +808,12 @@ body {
 }
 
 @media (max-width: 600px) {
-  .header { min-height: 16vh; height: 16vh; }
-  .header h1 { font-size: 1.2rem; }
+  body { font-size: 16px; }
+  .container { padding: 0 4vw; }
+  .btn { width: 95%; font-size: 1em; }
   .facilities-grid { grid-template-columns: 1fr; }
-  .btn { font-size: 1rem; padding: 0.8em 1.2em; }
 }
+
 
 .btn {
   font-size: 1.1rem;
