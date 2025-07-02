@@ -580,6 +580,42 @@ body {
   }
 }
 
+@media (width: 2560px) and (height: 1600px) {
+ .container {
+    width: 100%;
+    padding: 0 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 5px; /* 위로 20px 올림, 값은 조절 가능 */
+  }
+
+  .welcome-emoji {
+    margin-right: 0px;
+    font-size: 1em; /* 필요시 크기도 조정 */
+    top: 6px; /* 위로 10px 올림, 값은 조절 가능 */
+  }
+
+  .welcome-text {
+    font-size: 1.5em;
+    top: 2px;
+  }
+  
+  .welcome-btn {
+    width: 300%;
+    font-size: 0.95em;
+  }
+  
+  .btn {
+    width: 100%;
+    font-size: 1em;
+  }  
+
+  .form-input {
+    width: 90%;
+    font-size: 1em;
+  }
+}
+
 @media (min-width: 481px) and (max-width: 1024px) {
  .container {
     width: 100%;
