@@ -620,13 +620,12 @@ body {
  .container {
     width: 100%;
     padding: 0 0px;
-    margin-left: 0px;
+    margin-left: 05x;
     margin-right: 0px;
     margin-top: 5px; /* 위로 20px 올림, 값은 조절 가능 */
   }
 
-  .welcome-emoji {
-    margin-right: 0px;
+  .welcome-emoji{
     font-size: 1em; /* 필요시 크기도 조정 */
     top: 6px; /* 위로 10px 올림, 값은 조절 가능 */
   }
