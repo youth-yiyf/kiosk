@@ -831,7 +831,7 @@ img {
 }
 
 #user-info-screen .form-group {
-  width: 90%;
+  width: 100%;
   max-width: 350px;
   margin: 0 auto 25px auto;
   display: flex;
