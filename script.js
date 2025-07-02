@@ -139,11 +139,11 @@ function initializeFacilityNumberScreen() {
   let numbers = [];
   if (selectedFacility === '닌텐도') {
     numbers = ['1번', '2번', '3번', '4번', '5번', '6번', '7번', '8번', '9번'];
-  } else if (selectedFacility === '플레이스테이션') {
+  } else if (selectedFacility === '플레이스테이션' || selectedFacility === '플레이\n스테이션') {
     numbers = ['1번', '2번'];
   } else if (selectedFacility === '노래방') {
     numbers = ['1번', '2번'];
-  } else if (selectedFacility === '보드게임') {
+  } else if (selectedFacility === '보드게임' || selectedFacility === '보드\n게임') {
     numbers = ['1번', '2번'];
   }
 
