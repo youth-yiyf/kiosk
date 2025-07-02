@@ -823,3 +823,22 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+#user-info-screen {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+#user-info-screen .form-group {
+  width: 90%;
+  max-width: 350px;
+  margin: 0 auto 25px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#user-info-screen .form-input {
+  width: 100%;
+  box-sizing: border-box;
+}
