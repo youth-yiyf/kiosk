@@ -616,45 +616,6 @@ body {
   }
 }
 
-@media (min-width: 1025px) {
-  .container {
-    max-width: 768px;
-    margin: 0 auto;
-  }
-}
-
-.btn-download {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.btn-download:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-}
-
-.btn-reset {
-  background: linear-gradient(135deg, #ff6b6b, #feca57);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.btn-reset:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
-}
-
 /* 다운로드 모달 스타일 개선 */
 #download-modal {
   animation: modalSlideIn 0.3s ease-out;
