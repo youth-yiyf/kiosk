@@ -1,7 +1,7 @@
 {
   "name": "흥덕청소년문화의집",
   "short_name": "흥덕-체크인",
-  "start_url": "https://youth-yiyf.github.io/kiosk/",
+  "start_url": "https://kiosk-chi-gilt.vercel.app/",
   "display": "standalone",
   "background_color": "#fff",
   "theme_color": "#ff6b6b",
