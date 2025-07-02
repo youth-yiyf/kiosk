@@ -60,7 +60,19 @@
     <div style="text-align: center; margin-top: 40px;">
     <button class="btn btn-primary" onclick="validateUserInfo()">다음</button>
   </div>
- </div>
+</div>
+
+  <!-- 정보 확인 화면 -->
+  <div id="user-info-confirm-screen" class="screen">
+    <h2 style="text-align:center; margin:40px 0 30px;">입력하신 정보가 맞습니까?</h2>
+    <div id="confirm-info-box" style="background:#f8f9fa; padding:25px; border-radius:15px; margin-bottom:30px; text-align:left; max-width:350px; margin-left:auto; margin-right:auto;">
+      <!-- JS로 정보 표시 -->
+    </div>
+    <div style="text-align:center;">
+      <button class="btn btn-primary" onclick="goToFacilityScreen()">예</button>
+      <button class="btn btn-secondary" onclick="goBackToUserInfo()">아니오</button>
+    </div>
+  </div>
 
   <!-- 시설 선택 화면 -->
   <div id="facility-screen" class="screen">
