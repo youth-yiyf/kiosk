@@ -10,6 +10,6 @@ const firebaseConfig = {
   measurementId: "G-18GLC0NZX7"
 };
 
-// Firebase 초기화
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database(); // 실시간 데이터베이스 인스턴스
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
