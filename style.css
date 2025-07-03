@@ -530,37 +530,10 @@ body {
   }
 }
 
-@media (max-width: 360px) {
-  .welcome-text {
-    font-size: 1.2em;
-    padding: 0 10px;
-  }
-
-  .btn {
-    width: 90%;
-    font-size: 0.95em;
-    padding: 12px;
-  }
-
-  .form-input {
-    font-size: 0.9em;
-    padding: 12px;
-  }
-
-  .facility-card {
-    padding: 15px;
-  }
-
-  .reservation-item {
-    font-size: 0.9em;
-    padding: 15px;
-  }
-}
-
 @media (max-width: 480px) {
   .container {
-    padding: 0 10px;
-    margin-left: 20px; 
+    padding: 0 0px;
+    margin-left: 0 0px; 
   }
 
   .facilities-grid {
@@ -580,7 +553,7 @@ body {
   }
 }
 
-@media (width: 2560px) and (height: 1600px) {
+@media (width: 1600px) and (height: 2560px) {
  .container {
     width: 100%;
     padding: 0 0px;
