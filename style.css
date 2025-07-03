@@ -525,19 +525,13 @@ body {
     font-size: 1em;
   }
 
+  .container {
+    padding: 0;
+    margin-left: 0;
+  }
+
   .facilities-grid {
     grid-template-columns: 1fr; /* 1열로 */
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    padding: 0 0px;
-    margin-left: 0 0px; 
-  }
-
-  .facilities-grid {
-    grid-template-columns: 1fr;
   }
 
   .time-slots {
@@ -550,7 +544,6 @@ body {
 
   .header p {
     font-size: 0.95em;
-  }
 }
 
 @media (width: 1600px) and (height: 2560px) {
@@ -608,28 +601,6 @@ body {
 #download-modal .btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-@media (max-width: 480px) {
-  .btn-download, .btn-reset {
-    font-size: 0.9rem;
-    padding: 10px 16px;
-  }
-  
-   div[style*="justify-content: space-between"] {
-    flex-direction: column !important;
-    gap: 10px !important;
-  }
-  
-  .btn-download, .btn-reset {
-    width: 100% !important;
-  }
-  
-    #download-modal {
-    min-width: 280px;
-    max-width: 90vw;
-    padding: 20px;
-  }
 }
 
 @media (max-height: 600px) {
