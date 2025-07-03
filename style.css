@@ -518,7 +518,7 @@ body {
  .welcome-image-container {
   position: relative;
   width: 100%;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 0px);
   background-image: url('https://i.imgur.com/SajIoww.jpeg');
   background-size: cover;
   background-position: center bottom;
@@ -537,7 +537,7 @@ body {
   }
 
   .container {
-    padding: 0px;
+    padding: 6px;
     margin-left: -2px;
   }
 
