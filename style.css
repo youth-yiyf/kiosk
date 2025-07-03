@@ -545,6 +545,7 @@ body {
   .header p {
     font-size: 0.95em;
 }
+}
 
 @media (width: 1600px) and (height: 2560px) {
  .container {
