@@ -526,8 +526,8 @@ body {
   }
 
   .container {
-    padding: 0;
-    margin-left: -1;
+    padding: 0px;
+    margin-left: -2px;
   }
 
   .facilities-grid {
@@ -544,8 +544,8 @@ body {
 
   .header p {
     font-size: 0.95em;
-}
-}
+  }
+ }
 
 @media (width: 1600px) and (height: 2560px) {
  .container {
