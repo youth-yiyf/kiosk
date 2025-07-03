@@ -515,6 +515,17 @@ body {
 }
 
 @media (max-width: 480px) {
+ .welcome-image-container {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 60px);
+  background-image: url('https://i.imgur.com/SajIoww.jpeg');
+  background-size: cover;
+  background-position: center bottom;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
   .welcome-text {
     font-size: 1.1em;
     padding: 0 20px;
