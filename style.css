@@ -559,6 +559,12 @@ body {
     margin-left: 0px;
   }
 
+  .status-section {
+    min-height: calc(100vh - 100px); /* 헤더/푸터 높이에 맞게 조정 */
+    box-sizing: border-box;
+    padding-bottom: 0px; /* 필요시 하단 여백 */
+  }
+  
   .facilities-grid {
     grid-template-columns: 1fr; /* 1열로 */
   }
