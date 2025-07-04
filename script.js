@@ -267,6 +267,11 @@ function completeReservation() {
     return;
   }
 
+  // 🔵 예약 처리: 예시로만 성공 처리
+  alert('예약이 완료되었습니다!');
+  showScreen('success-screen');
+}
+
   const today = new Date().toLocaleDateString('ko-KR');
   const reservation = {
     name: userName,
