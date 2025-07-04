@@ -795,3 +795,10 @@ body {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+  #success-screen .welcome-screen .btn.btn-primary {
+    margin-top: 60px;
+    margin-bottom: 20px;
+    display: block;
+    width: 100%;
+  }
