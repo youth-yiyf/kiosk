@@ -554,7 +554,7 @@ body {
     position: relative;
     margin-top: -50px; 
     margin-left: 90px;
-    font-size: 10em; /* 필요시 크기도 조정 */
+    font-size: 20em; /* 필요시 크기도 조정 */
   }
   
   .btn {
@@ -797,7 +797,7 @@ body {
 }
 
   #success-screen .welcome-screen .btn.btn-primary {
-    margin-top: 180px;
+    margin-top: 190px;
     margin-bottom: 20px;
     display: block;
     margin-left: auto;
