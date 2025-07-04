@@ -249,11 +249,6 @@ function completeReservation() {
   const userBirth = document.getElementById('user-birth').value;
   const userPhone = document.getElementById('user-phone').value;
 
- // 🟡 여기 추가된 부분: 선택한 시설 정보 로딩
-  const selectedFacility = localStorage.getItem('facility');
-  const selectedFacilityNumber = localStorage.getItem('facilityNumber');
-  const selectedTime = localStorage.getItem('selectedTime');  
-
   console.log('예약 정보:', { userName, userBirth, userPhone, selectedFacility, selectedFacilityNumber, selectedTime });
 
   // 댄스연습실과 강의실은 번호가 없으므로 검증 조건 수정
@@ -266,11 +261,6 @@ function completeReservation() {
     alert('모든 정보를 입력해주세요.');
     return;
   }
-
-  // 🔵 예약 처리: 예시로만 성공 처리
-  alert('예약이 완료되었습니다!');
-  showScreen('success-screen');
-}
 
   const today = new Date().toLocaleDateString('ko-KR');
   const reservation = {
