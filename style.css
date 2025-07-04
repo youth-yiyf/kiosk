@@ -797,8 +797,10 @@ body {
 }
 
   #success-screen .welcome-screen .btn.btn-primary {
-    margin-top: 60px;
+    margin-top: 150px;
     margin-bottom: 20px;
     display: block;
+    margin-left: auto;
+    margin-right: auto;
     width: 100%;
   }
