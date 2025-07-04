@@ -253,7 +253,7 @@ function completeReservation() {
 
   // 댄스연습실과 강의실은 번호가 없으므로 검증 조건 수정
   const hasRequiredInfo = userName && userBirth && userPhone && selectedFacility && selectedTime;
-  const hasFacilityNumber = selectedFacilityNumber || (selectedFacility === '댄스연습실' || selectedFacility === '강의실');
+  const hasFacilityNumber = selectedFacilityNumber || (cleanFacility === '댄스연습실' || cleanFacility === '강의실');
   
   console.log('검증 결과:', { hasRequiredInfo, hasFacilityNumber });
   
