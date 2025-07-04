@@ -391,7 +391,7 @@ body {
 }
 
 .form-input {
-  width: 80%;         /* 기존 80% → 60% 등으로 줄이기 */
+  width: 100%;         /* 기존 80% → 60% 등으로 줄이기 */
   max-width: 220px;   /* 최대 너비도 더 작게 */
   min-width: 120px;   /* 최소 너비도 필요시 조정 */
   padding: 15px;
