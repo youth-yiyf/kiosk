@@ -249,6 +249,11 @@ function completeReservation() {
   const userBirth = document.getElementById('user-birth').value;
   const userPhone = document.getElementById('user-phone').value;
 
+ // 🟡 여기 추가된 부분: 선택한 시설 정보 로딩
+  const selectedFacility = localStorage.getItem('facility');
+  const selectedFacilityNumber = localStorage.getItem('facilityNumber');
+  const selectedTime = localStorage.getItem('selectedTime');  
+
   console.log('예약 정보:', { userName, userBirth, userPhone, selectedFacility, selectedFacilityNumber, selectedTime });
 
   // 댄스연습실과 강의실은 번호가 없으므로 검증 조건 수정
