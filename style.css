@@ -387,7 +387,7 @@ body {
   color: #555;
   text-align: left;      /* ← 왼쪽 정렬 */
   width: 100%;           /* ← 부모(.form-group) 기준으로 왼쪽에 붙음 */
-  max-width: 300px;     
+  max-width: 400px;     
 }
 
 .form-input {
