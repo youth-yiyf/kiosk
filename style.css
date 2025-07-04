@@ -521,7 +521,7 @@ body {
   height: calc(100vh - 200px);
   background-image: url('https://i.imgur.com/SajIoww.jpeg');
   background-size: cover;
-  background-position: center 30px;
+  background-position: center 0px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -529,7 +529,7 @@ body {
   
   .welcome-emoji {
     font-size: 1em; /* 필요시 크기도 조정 */
-    top: 4px; /* 위로 10px 올림, 값은 조절 가능 */
+    top: -3px; /* 위로 10px 올림, 값은 조절 가능 */
   }
   
   .welcome-text {
