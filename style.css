@@ -552,9 +552,9 @@ body {
 
   .success-emoji {
     position: relative;
-    margin-top: -30px; 
+    margin-top: -60px; 
     margin-left: 90px;
-    font-size: 2em; /* 필요시 크기도 조정 */
+    font-size: 4em; /* 필요시 크기도 조정 */
   }
   
   .btn {
