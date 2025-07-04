@@ -528,11 +528,13 @@ body {
 }
   
   .welcome-emoji {
+    position: relative;
+    top: 5px;
     font-size: 1em; /* 필요시 크기도 조정 */
-    top: -3px; /* 위로 10px 올림, 값은 조절 가능 */
   }
   
   .welcome-text {
+    position: relative;
     font-size: 1.4em;
     padding: 0 20px;
     top: 1px; /* 위로 10px 올림, 값은 조절 가능 */
