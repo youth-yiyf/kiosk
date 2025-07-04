@@ -529,8 +529,8 @@ body {
   
   .welcome-emoji {
     position: relative;
-    margin-top: 8px; 
-    margin-left: 50px;
+    margin-top: 3px; 
+    margin-left: 80px;
     text-align: center;
     font-size: 1em; /* 필요시 크기도 조정 */
   }
@@ -540,7 +540,7 @@ body {
     font-size: 1.4em;
     padding: 0 20px;
     text-align: center;
-    margin-top: 1px; 
+    margin-top: -5px; 
   }
 
   .btn {
