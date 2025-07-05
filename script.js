@@ -2,7 +2,7 @@ let currentScreen = 'main-screen';
 let screenHistory = [];
 let selectedFacility = '';
 let selectedFacilityNumber = '';
-let selectedTimeslots = '';
+let selectedTime = '';
 let selectedStatusFacility = '';
 
 // ✅ 날짜 자동 초기화 체크
@@ -35,16 +35,16 @@ function resetReservationsDirectly() {
   // 데이터 초기화
   localStorage.removeItem('reservations');
   reservations = [];
-  
+
   alert("✅ 모든 예약이 초기화되었습니다.");
-  
+
   // 현재 화면 즉시 새로고침
   if (currentScreen === 'status-screen') {
     loadReservationStatus();
   } else if (currentScreen === 'all-status-screen') {
     loadAllStatus();
   }
-  
+
   // 추가: 강제로 화면 새로고침을 한번 더 시도
   setTimeout(() => {
     if (currentScreen === 'status-screen') {
@@ -61,7 +61,7 @@ function showScreen(screenId) {
   currentScreen = screenId;
   document.getElementById(screenId).classList.add('active');
   updateBackButton();
-  
+
   if (screenId === "user-info-screen") {
     clearUserInputs();
   } else if (screenId === 'facility-number-screen') { // 새롭게 추가
@@ -88,7 +88,7 @@ function goBack() {
     }
     return;
   }
-  
+
   if (screenHistory.length > 0) {
     document.getElementById(currentScreen).classList.remove('active');
     currentScreen = screenHistory.pop();
@@ -100,7 +100,7 @@ function goBack() {
 function updateBackButton() {
   const backBtn = document.querySelector('.back-btn');
   const homeBtn = document.querySelector('.home-btn');
-  
+
   if (currentScreen === 'main-screen') {
     backBtn.style.display = 'none';
     homeBtn.style.display = 'none';
@@ -121,25 +121,13 @@ function selectFacility(element) {
     '댄스연습실': '댄스\n연습실'
   };
   selectedFacility = facilityNameMap[name] || name;
-  
-    selectedFacilityNumber = ''; // 번호 없음
-  // ✅ 시설 유형에 따라 다음 화면 분기
-  if (selectedFacility === '댄스\n연습실' || selectedFacility === '강의실') {
-    showScreen('datetime-screen');
-  } else {
-    showScreen('facility-number-screen'); // 그 외 시설은 방 번호 선택
-  }
-}
 
-function goToDateTimeScreen() {
-  if (
-    (selectedFacility !== '댄스\n연습실' && selectedFacility !== '강의실') &&
-    !selectedFacilityNumber
-  ) {
-    alert("이용 공간을 선택해주세요.");
-    return;
+  if (selectedFacility === '댄스\n연습실' || selectedFacility === '강의실') {
+    selectedFacilityNumber = ''; // 번호 없음
+    showScreen('datetime-screen'); // 바로 날짜/시간 선택 화면으로 이동
+  } else {
+    showScreen('facility-number-screen'); // 기존대로 번호 선택 화면으로 이동
   }
-  showScreen('datetime-screen');
 }
 
 // 시설별 번호를 동적으로 생성
@@ -177,13 +165,13 @@ function showAllFacilitiesStatus() {
   selectedStatusFacility = ''; // 선택된 시설 초기화
   document.getElementById('status-facility-select-section').classList.remove('active');
   document.getElementById('status-timetable-section').classList.add('active');
-  
+
   // 헤더 업데이트
   document.getElementById('selected-facility-title').textContent = '📊 전체 시설 예약 현황';
   document.getElementById('selected-facility-subtitle').textContent = new Date().toLocaleDateString('ko-KR', {
     year: 'numeric', month: 'long', day: 'numeric', weekday: 'short'
   });
-  
+
   loadAllStatus();
 }
 
@@ -192,7 +180,7 @@ function goBackToFacilitySelect() {
   document.getElementById('status-timetable-section').classList.remove('active');
   document.getElementById('status-facility-select-section').classList.add('active');
   selectedStatusFacility = '';
-  
+
   // 선택된 시설 카드 초기화
   document.querySelectorAll('#status-facility-select-section .facility-card').forEach(card => {
     card.classList.remove('selected');
@@ -234,7 +222,7 @@ function updateTimeSlotAvailability() {
   timeSlots.forEach(slot => {
     const timeData = slot.getAttribute('data-time');
     slot.classList.remove('unavailable', 'selected');
-    
+
     // 현재 선택된 시설과 번호에 대한 예약이 있는지 확인
     const isReserved = reservations.some(r => 
       r.facility === selectedFacility && 
@@ -242,7 +230,7 @@ function updateTimeSlotAvailability() {
       r.date === today && 
       r.time === timeData
     );
-    
+
     if (isReserved) {
       slot.classList.add('unavailable');
     }
@@ -265,9 +253,11 @@ function completeReservation() {
 
   // 댄스연습실과 강의실은 번호가 없으므로 검증 조건 수정
   const hasRequiredInfo = userName && userBirth && userPhone && selectedFacility && selectedTime;
+  const hasFacilityNumber = selectedFacilityNumber || (cleanFacility === '댄스연습실' || cleanFacility === '강의실');
+  
   const hasFacilityNumber = selectedFacilityNumber || (selectedFacility === '댄스연습실' || selectedFacility === '댄스\n연습실' || selectedFacility === '강의실');
   console.log('검증 결과:', { hasRequiredInfo, hasFacilityNumber });
-  
+
   if (!hasRequiredInfo || !hasFacilityNumber) {
     alert('모든 정보를 입력해주세요.');
     return;
@@ -288,7 +278,7 @@ function completeReservation() {
   console.log('예약 객체:', reservation);
 
   reservations.push(reservation);
-  
+
   // existingReservations 사용 제거 - 각 예약이 독립적으로 관리됨
   saveToLocalStorage();
   console.log('success-screen으로 이동 시도');
@@ -299,32 +289,32 @@ function completeReservation() {
 
 function updateSuccessScreen(facility, date, time) {
   console.log('updateSuccessScreen 호출:', { facility, date, time, selectedFacilityNumber });
-  
+
   const successScreen = document.getElementById('success-screen');
   console.log('success-screen 요소:', successScreen);
-  
+
   const infoDiv = successScreen.querySelector('div[style*="background:#f8f9fa"]');
   console.log('infoDiv 요소:', infoDiv);
-  
+
   // 댄스연습실과 강의실은 번호가 없으므로 표시 방식 수정
   const facilityDisplay = selectedFacilityNumber ? `${facility} ${selectedFacilityNumber}` : facility;
   console.log('facilityDisplay:', facilityDisplay);
-  
+
   infoDiv.innerHTML = `
     <p><strong>시설:</strong> ${facilityDisplay}</p>
     <p><strong>날짜:</strong> ${date}</p>
     <p><strong>시간:</strong> ${time}</p>
   `;
-  
+
   console.log('updateSuccessScreen 완료');
 }
 
 function loadReservationStatus() {
   const reservationList = document.getElementById('reservation-list');
-  
+
   // 강제로 HTML 초기화
   reservationList.innerHTML = '';
-  
+
   if (reservations.length === 0) {
     reservationList.innerHTML = `<div class="no-reservations">📝 아직 예약된 시설이 없습니다.<br>새로운 예약을 만들어보세요!</div>`;
   } else {
@@ -348,12 +338,12 @@ function loadAllStatus() {
 
   // 오늘 날짜 가져오기
   const today = new Date().toLocaleDateString('ko-KR');
-  
-  // 시간 슬롯 정의 (13:00~18:00)
+
+  // 시간 슬롯 정의 (09:00~20:00)
   const timeSlots = [
-    '13:00~13:30', '13:30~14:00', '14:00~14:30', 
-    '14:30~15:00', '15:00~15:30', '15:30~16:00', 
-    '16:00~16:30', '16:30~17:00', '17:00~17:30', '17:30~18:00'
+    '09:00~10:00', '10:00~11:00', '11:00~12:00', 
+    '13:00~14:00', '14:00~15:00', '15:00~16:00', 
+    '16:00~17:00', '17:00~18:00', '18:00~19:00', '19:00~20:00'
   ];
 
   // 모든 시설 정의
@@ -374,19 +364,19 @@ function loadAllStatus() {
   // 타임테이블 생성
   let html = `<div class="status-table-container">`;
   html += `<table class="status-table">`;
-  
+
   // 헤더 생성
   html += `<thead><tr><th>시간</th>`;
   facilitiesToShow.forEach(facility => {
     html += `<th>${facility.name}</th>`;
   });
   html += `</tr></thead>`;
-  
+
   // 본문 생성
   html += `<tbody>`;
   timeSlots.forEach(timeSlot => {
     html += `<tr><td>${timeSlot}</td>`;
-    
+
     facilitiesToShow.forEach(facility => {
       if (facility.numbers.length > 0) {
         // 번호가 있는 시설 (닌텐도, 플레이스테이션, 노래방, 보드게임)
@@ -404,7 +394,7 @@ function loadAllStatus() {
             reservedNumbers.push(numberOnly);
           }
         });
-        
+
         if (reservedNumbers.length > 0) {
           const numberElements = reservedNumbers.map(num => 
             `<span class="reserved-number">${num}</span>`
@@ -420,7 +410,7 @@ function loadAllStatus() {
           r.date === today && 
           r.time === timeSlot
         );
-        
+
         if (isReserved) {
           html += `<td class="reserved"><span class="reserved-number">예약</span></td>`;
         } else {
@@ -549,12 +539,12 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
-  
+
   // 모달 외부 클릭시 닫기
   document.addEventListener('click', function(e) {
     const modal = document.getElementById('admin-modal');
     const resetBtn = document.querySelector('.btn-reset');
-    
+
     if (modal && modal.style.display === 'block' && 
         !modal.contains(e.target) && 
         e.target !== resetBtn) {
@@ -568,9 +558,9 @@ function downloadAsCSV() {
     alert("다운로드할 예약 데이터가 없습니다.");
     return;
   }
-  
+
   const headers = ['이름', '생년월일', '전화번호', '시설', '시설 번호', '날짜', '시간', '예약ID'];
-  
+
    const csvData = reservations.map(r => [
     r.name,
     r.birth,
@@ -581,14 +571,14 @@ function downloadAsCSV() {
     r.time,
     r.id
   ]);
-  
+
   const csvContent = [headers, ...csvData]
     .map(row => row.map(field => `"${field}"`).join(','))
     .join('\n');
-  
+
   const BOM = '\uFEFF';
   const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
-  
+
    const today = new Date().toLocaleDateString('ko-KR').replace(/\./g, '').replace(/\s/g, '');
   downloadFile(blob, `예약현황_${today}.csv`);
 }
@@ -598,7 +588,7 @@ function downloadAsExcel() {
     alert("다운로드할 예약 데이터가 없습니다.");
     return;
   }
-  
+
     let htmlTable = `
     <table border="1">
       <thead>
@@ -615,7 +605,7 @@ function downloadAsExcel() {
       </thead>
       <tbody>
   `;
-  
+
     reservations.forEach(r => {
     htmlTable += `
       <tr>
@@ -635,11 +625,11 @@ function downloadAsExcel() {
       </tbody>
     </table>
   `;
-  
+
     const blob = new Blob([htmlTable], { 
     type: 'application/vnd.ms-excel;charset=utf-8;' 
   });
-  
+
   const today = new Date().toLocaleDateString('ko-KR').replace(/\./g, '').replace(/\s/g, '');
   downloadFile(blob, `예약현황_${today}.xls`);
 }
@@ -685,7 +675,7 @@ function downloadAsJSON() {
 
   const jsonContent = JSON.stringify(exportData, null, 2);
   const blob = new Blob([jsonContent], { type: 'application/json;charset=utf-8;' });
-  
+
   const today = new Date().toLocaleDateString('ko-KR').replace(/\./g, '').replace(/\s/g, '');
   downloadFile(blob, `예약데이터_${today}.json`);
 }
@@ -700,18 +690,7 @@ function downloadAllStatusAsHTML() {
     year: 'numeric', month: 'long', day: 'numeric', weekday: 'short'
   });
 
-  const timeSlots = [
-  '13:00-13:30',
-  '13:30-14:00',
-  '14:00-14:30',
-  '14:30-15:00',
-  '15:00-15:30',
-  '15:30-16:00',
-  '16:00-16:30',
-  '16:30-17:00',
-  '17:00-17:30',
-  '17:30-18:00'
-];
+  const timeSlots = ['09:00-10:00','10:00-11:00','11:00-12:00','13:00-14:00','14:00-15:00','15:00-16:00','16:00-17:00','17:00-18:00','18:00-19:00','19:00-20:00'];
   const facilities = ['닌텐도','플레이스테이션','노래방','보드게임','댄스연습실','강의실'];
 
   let htmlContent = `
@@ -805,7 +784,7 @@ function setupDownloadModalEvents() {
   document.addEventListener('click', function(e) {
     const modal = document.getElementById('download-modal');
     const downloadBtn = document.querySelector('.btn-download');
-    
+
     if (modal && modal.style.display === 'block' && 
         !modal.contains(e.target) && 
         e.target !== downloadBtn) {
@@ -825,22 +804,22 @@ function searchReservations() {
   const searchName = document.getElementById('search-name').value.trim();
   const searchBirth = document.getElementById('search-birth').value;
   const searchPhone = document.getElementById('search-phone').value.trim();
-  
+
   // 최소한 하나의 검색 조건이 필요
   if (!searchName && !searchBirth && !searchPhone) {
     alert('검색할 정보를 하나 이상 입력해주세요.');
     return;
   }
-  
+
   // 검색 조건에 맞는 예약 필터링
   const filteredReservations = reservations.filter(r => {
     const nameMatch = !searchName || r.name.toLowerCase().includes(searchName.toLowerCase());
     const birthMatch = !searchBirth || r.birth === searchBirth;
     const phoneMatch = !searchPhone || r.phone.includes(searchPhone);
-    
+
     return nameMatch && birthMatch && phoneMatch;
   });
-  
+
   // 검색 결과 표시
   displaySearchResults(filteredReservations);
 }
@@ -849,7 +828,7 @@ function searchReservations() {
 function displaySearchResults(results) {
   const searchResults = document.getElementById('search-results');
   const reservationList = document.getElementById('reservation-list');
-  
+
   if (results.length === 0) {
     reservationList.innerHTML = `
       <div style="text-align: center; padding: 40px; color: #666;">
@@ -863,7 +842,7 @@ function displaySearchResults(results) {
     let html = `<div style="margin-bottom: 20px; text-align: center; color: #333;">
       <strong>총 ${results.length}개의 예약을 찾았습니다.</strong>
     </div>`;
-    
+
     results.forEach(r => {
       const facilityDisplay = r.facilityNumber ? `${r.facility} ${r.facilityNumber}` : r.facility;
       html += `<div class="reservation-item" style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
@@ -879,10 +858,10 @@ function displaySearchResults(results) {
         </div>
       </div>`;
     });
-    
+
     reservationList.innerHTML = html;
   }
-  
+
   searchResults.style.display = 'block';
 }
 
@@ -901,10 +880,10 @@ function deleteReservation(reservationId) {
     if (index !== -1) {
       reservations.splice(index, 1);
       saveToLocalStorage();
-      
+
       // 현재 검색 결과 다시 표시
       searchReservations();
-      
+
       alert('예약이 삭제되었습니다.');
     }
   }
@@ -915,26 +894,26 @@ function validateUserInfo() {
   const userName = document.getElementById('user-name').value.trim();
   const userBirth = document.getElementById('user-birth').value;
   const userPhone = document.getElementById('user-phone').value.trim();
-  
+
   // 각 필드별 검증
   if (!userName) {
     alert('이름을 입력해주세요.');
     document.getElementById('user-name').focus();
     return;
   }
-  
+
   if (!userBirth) {
     alert('생년월일을 선택해주세요.');
     document.getElementById('user-birth').focus();
     return;
   }
-  
+
   if (!userPhone) {
     alert('전화번호를 입력해주세요.');
     document.getElementById('user-phone').focus();
     return;
   }
-  
+
   // 전화번호 형식 검증 (숫자 9~11자리)
   const phoneDigits = userPhone.replace(/[^0-9]/g, "");
 if (phoneDigits.length < 9 || phoneDigits.length > 11) {
@@ -942,7 +921,7 @@ if (phoneDigits.length < 9 || phoneDigits.length > 11) {
   document.getElementById('user-phone').focus();
   return;
 }
-  
+
   // 모든 검증을 통과하면 다음 화면으로 이동
   showUserInfoConfirmScreen();
 }
