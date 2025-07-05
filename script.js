@@ -201,7 +201,7 @@ function selectStatusFacility(element) {
   document.getElementById('status-timetable-section').classList.add('active');
 
   // 헤더 업데이트
-  document.getElementById('selected-facility-title').textContent = 📅 ${selectedStatusFacility} 예약 현황;
+  document.getElementById('selected-facility-title').textContent = `📅 ${selectedStatusFacility} 예약 현황`;
   document.getElementById('selected-facility-subtitle').textContent = new Date().toLocaleDateString('ko-KR', {
     year: 'numeric', month: 'long', day: 'numeric', weekday: 'short'
   });
@@ -298,14 +298,14 @@ function updateSuccessScreen(facility, date, time) {
   console.log('infoDiv 요소:', infoDiv);
   
   // 댄스연습실과 강의실은 번호가 없으므로 표시 방식 수정
-  const facilityDisplay = selectedFacilityNumber ? ${facility} ${selectedFacilityNumber} : facility;
+  const facilityDisplay = selectedFacilityNumber ? `${facility} ${selectedFacilityNumber}` : facility;
   console.log('facilityDisplay:', facilityDisplay);
   
-  infoDiv.innerHTML = 
+  infoDiv.innerHTML = `
     <p><strong>시설:</strong> ${facilityDisplay}</p>
     <p><strong>날짜:</strong> ${date}</p>
     <p><strong>시간:</strong> ${time}</p>
-  ;
+  `;
   
   console.log('updateSuccessScreen 완료');
 }
@@ -317,17 +317,17 @@ function loadReservationStatus() {
   reservationList.innerHTML = '';
   
   if (reservations.length === 0) {
-    reservationList.innerHTML = <div class="no-reservations">📝 아직 예약된 시설이 없습니다.<br>새로운 예약을 만들어보세요!</div>;
+    reservationList.innerHTML = `<div class="no-reservations">📝 아직 예약된 시설이 없습니다.<br>새로운 예약을 만들어보세요!</div>`;
   } else {
     let html = '';
     reservations.forEach(r => {
-      html += <div class="reservation-item">
+      html += `<div class="reservation-item">
         <h3>🏢 ${r.facility} ${r.facilityNumber}</h3>
         <p><strong>👤 예약자:</strong> ${r.name}</p>
         <p><strong>📅 날짜:</strong> ${r.date}</p>
         <p><strong>⏰ 시간:</strong> ${r.time}</p>
         <p><strong>📞 연락처:</strong> ${r.phone}</p>
-      </div>;
+      </div>`;
     });
     reservationList.innerHTML = html;
   }
@@ -363,20 +363,20 @@ function loadAllStatus() {
     : allFacilities;
 
   // 타임테이블 생성
-  let html = <div class="status-table-container">;
-  html += <table class="status-table">;
+  let html = `<div class="status-table-container">`;
+  html += `<table class="status-table">`;
   
   // 헤더 생성
-  html += <thead><tr><th>시간</th>;
+  html += `<thead><tr><th>시간</th>`;
   facilitiesToShow.forEach(facility => {
-    html += <th>${facility.name}</th>;
+    html += `<th>${facility.name}</th>`;
   });
-  html += </tr></thead>;
+  html += `</tr></thead>`;
   
   // 본문 생성
-  html += <tbody>;
+  html += `<tbody>`;
   timeSlots.forEach(timeSlot => {
-    html += <tr><td>${timeSlot}</td>;
+    html += `<tr><td>${timeSlot}</td>`;
     
     facilitiesToShow.forEach(facility => {
       if (facility.numbers.length > 0) {
@@ -398,11 +398,11 @@ function loadAllStatus() {
         
         if (reservedNumbers.length > 0) {
           const numberElements = reservedNumbers.map(num => 
-            <span class="reserved-number">${num}</span>
+            `<span class="reserved-number">${num}</span>`
           ).join('');
-          html += <td class="reserved">${numberElements}</td>;
+          html += `<td class="reserved">${numberElements}</td>`;
         } else {
-          html += <td></td>;
+          html += `<td></td>`;
         }
       } else {
         // 번호가 없는 시설 (댄스연습실, 강의실)
@@ -413,15 +413,15 @@ function loadAllStatus() {
         );
         
         if (isReserved) {
-          html += <td class="reserved"><span class="reserved-number">예약</span></td>;
+          html += `<td class="reserved"><span class="reserved-number">예약</span></td>`;
         } else {
-          html += <td></td>;
+          html += `<td></td>`;
         }
       }
     });
-    html += </tr>;
+    html += `</tr>`;
   });
-  html += </tbody></table></div>;
+  html += `</tbody></table></div>`;
 
   statusGrid.innerHTML = html;
 }
@@ -574,14 +574,14 @@ function downloadAsCSV() {
   ]);
   
   const csvContent = [headers, ...csvData]
-    .map(row => row.map(field => "${field}").join(','))
+    .map(row => row.map(field => `"${field}"`).join(','))
     .join('\n');
   
   const BOM = '\uFEFF';
   const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
   
    const today = new Date().toLocaleDateString('ko-KR').replace(/\./g, '').replace(/\s/g, '');
-  downloadFile(blob, 예약현황_${today}.csv);
+  downloadFile(blob, `예약현황_${today}.csv`);
 }
 
 function downloadAsExcel() {
@@ -590,7 +590,7 @@ function downloadAsExcel() {
     return;
   }
   
-    let htmlTable = 
+    let htmlTable = `
     <table border="1">
       <thead>
         <tr>
@@ -605,10 +605,10 @@ function downloadAsExcel() {
         </tr>
       </thead>
       <tbody>
-  ;
+  `;
   
     reservations.forEach(r => {
-    htmlTable += 
+    htmlTable += `
       <tr>
         <td>${r.name}</td>
         <td>${r.birth}</td>
@@ -619,20 +619,20 @@ function downloadAsExcel() {
         <td>${r.time}</td>
         <td>${r.id}</td>
       </tr>
-    ;
+    `;
   });
 
-  htmlTable += 
+  htmlTable += `
       </tbody>
     </table>
-  ;
+  `;
   
     const blob = new Blob([htmlTable], { 
     type: 'application/vnd.ms-excel;charset=utf-8;' 
   });
   
   const today = new Date().toLocaleDateString('ko-KR').replace(/\./g, '').replace(/\s/g, '');
-  downloadFile(blob, 예약현황_${today}.xls);
+  downloadFile(blob, `예약현황_${today}.xls`);
 }
 
 function downloadAsText() {
@@ -642,24 +642,24 @@ function downloadAsText() {
   }
 
   const today = new Date().toLocaleDateString('ko-KR');
-  let textContent = === 흥덕청소년문화의집 예약 현황 ===\n;
-  textContent += 다운로드 일시: ${today}\n;
-  textContent += 총 예약 수: ${reservations.length}건\n\n;
+  let textContent = `=== 흥덕청소년문화의집 예약 현황 ===\n`;
+  textContent += `다운로드 일시: ${today}\n`;
+  textContent += `총 예약 수: ${reservations.length}건\n\n`;
 
   reservations.forEach((r, index) => {
-    textContent += [${index + 1}] 예약 정보\n;
-    textContent +=   - 이름: ${r.name}\n;
-    textContent +=   - 생년월일: ${r.birth}\n;
-    textContent +=   - 전화번호: ${r.phone}\n;
-    textContent +=   - 시설: ${r.facility}\n;
-    textContent +=   - 날짜: ${r.date}\n;
-    textContent +=   - 시간: ${r.time}\n;
-    textContent +=   - 예약ID: ${r.id}\n\n;
+    textContent += `[${index + 1}] 예약 정보\n`;
+    textContent += `  - 이름: ${r.name}\n`;
+    textContent += `  - 생년월일: ${r.birth}\n`;
+    textContent += `  - 전화번호: ${r.phone}\n`;
+    textContent += `  - 시설: ${r.facility}\n`;
+    textContent += `  - 날짜: ${r.date}\n`;
+    textContent += `  - 시간: ${r.time}\n`;
+    textContent += `  - 예약ID: ${r.id}\n\n`;
   });
 
   const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8;' });
   const todayStr = new Date().toLocaleDateString('ko-KR').replace(/\./g, '').replace(/\s/g, '');
-  downloadFile(blob, 예약현황_${todayStr}.txt);
+  downloadFile(blob, `예약현황_${todayStr}.txt`);
 }
 
 function downloadAsJSON() {
@@ -678,7 +678,7 @@ function downloadAsJSON() {
   const blob = new Blob([jsonContent], { type: 'application/json;charset=utf-8;' });
   
   const today = new Date().toLocaleDateString('ko-KR').replace(/\./g, '').replace(/\s/g, '');
-  downloadFile(blob, 예약데이터_${today}.json);
+  downloadFile(blob, `예약데이터_${today}.json`);
 }
 
 function downloadTableAsImage() {
@@ -694,7 +694,7 @@ function downloadAllStatusAsHTML() {
   const timeSlots = ['09:00-10:00','10:00-11:00','11:00-12:00','13:00-14:00','14:00-15:00','15:00-16:00','16:00-17:00','17:00-18:00','18:00-19:00','19:00-20:00'];
   const facilities = ['닌텐도','플레이스테이션','노래방','보드게임','댄스연습실','강의실'];
 
-  let htmlContent = 
+  let htmlContent = `
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -729,21 +729,21 @@ function downloadAllStatusAsHTML() {
             </tr>
         </thead>
         <tbody>
-  ;
+  `;
 
   timeSlots.forEach(time => {
-    htmlContent += <tr><td class="time-cell">${time}</td>;
+    htmlContent += `<tr><td class="time-cell">${time}</td>`;
     facilities.forEach(fac => {
       const isReserved = reservations.some(r => r.facility === fac && r.time === time);
       const r = reservations.find(r => r.facility === fac && r.time === time);
       const cellClass = isReserved ? 'reserved' : 'available';
       const cellContent = r?.name || (isReserved ? '예약됨' : '-');
-      htmlContent += <td class="${cellClass}">${cellContent}</td>;
+      htmlContent += `<td class="${cellClass}">${cellContent}</td>`;
     });
-    htmlContent += </tr>;
+    htmlContent += `</tr>`;
   });
 
-  htmlContent += 
+  htmlContent += `
         </tbody>
     </table>
     <div style="margin-top: 30px; text-align: center; color: #666; font-size: 0.9em;">
@@ -751,11 +751,11 @@ function downloadAllStatusAsHTML() {
     </div>
 </body>
 </html>
-  ;
+  `;
 
   const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8;' });
   const todayFileName = today.toLocaleDateString('ko-KR').replace(/\./g, '').replace(/\s/g, '');
-  downloadFile(blob, 전체예약현황_${todayFileName}.html);
+  downloadFile(blob, `전체예약현황_${todayFileName}.html`);
 }
 
 function downloadFile(blob, filename) {
@@ -831,22 +831,22 @@ function displaySearchResults(results) {
   const reservationList = document.getElementById('reservation-list');
   
   if (results.length === 0) {
-    reservationList.innerHTML = 
+    reservationList.innerHTML = `
       <div style="text-align: center; padding: 40px; color: #666;">
         <div style="font-size: 3em; margin-bottom: 20px;">🔍</div>
         <h3>검색 결과가 없습니다</h3>
         <p>입력하신 정보와 일치하는 예약을 찾을 수 없습니다.</p>
         <p>검색 조건을 다시 확인해주세요.</p>
       </div>
-    ;
+    `;
   } else {
-    let html = <div style="margin-bottom: 20px; text-align: center; color: #333;">
+    let html = `<div style="margin-bottom: 20px; text-align: center; color: #333;">
       <strong>총 ${results.length}개의 예약을 찾았습니다.</strong>
-    </div>;
+    </div>`;
     
     results.forEach(r => {
-      const facilityDisplay = r.facilityNumber ? ${r.facility} ${r.facilityNumber} : r.facility;
-      html += <div class="reservation-item" style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+      const facilityDisplay = r.facilityNumber ? `${r.facility} ${r.facilityNumber}` : r.facility;
+      html += `<div class="reservation-item" style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
         <h3 style="color: #ff8c00; margin-bottom: 15px;">🏢 ${facilityDisplay}</h3>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
           <div><strong>👤 예약자:</strong> ${r.name}</div>
@@ -857,7 +857,7 @@ function displaySearchResults(results) {
         <div style="text-align: right;">
           <button class="btn btn-secondary" onclick="deleteReservation(${r.id})" style="padding: 5px 10px; font-size: 0.8em;">🗑️ 삭제</button>
         </div>
-      </div>;
+      </div>`;
     });
     
     reservationList.innerHTML = html;
@@ -934,11 +934,11 @@ function showUserInfoConfirmScreen() {
   const userPhone = document.getElementById('user-phone').value.trim();
 
   // 정보 표시
-  document.getElementById('confirm-info-box').innerHTML = 
+  document.getElementById('confirm-info-box').innerHTML = `
     <p><strong>이름:</strong> ${userName}</p>
     <p><strong>생년월일:</strong> ${userBirth}</p>
     <p><strong>전화번호:</strong> ${userPhone}</p>
-  ;
+  `;
   showScreen('user-info-confirm-screen');
 }
 
