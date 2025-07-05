@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Untitled</title>
   <link rel="stylesheet" href="./style.css">
-  
+
   <link rel="manifest" href="manifest.json">
 
 </head>
@@ -103,9 +103,11 @@
         <div class="facility-name">강의실</div>
       </div>
     </div>
+    <div style="text-align: center; margin-top: 40px;">
+    <button class="btn btn-primary" onclionclick="showScreen('facility-number-screen')">다음</button>
   </div>
  </div>
-  
+
    <!-- 시설 번호 선택 화면 -->
   <div id="facility-number-screen" class="screen">
     <h2 style="margin-bottom:30px; text-align:center; color:#333;">🎯 이용 공간 선택</h2>
@@ -123,16 +125,16 @@
     <div class="form-group">
       <label>⏰ 시간 선택!</label>
       <div class="time-slots">
-        <div class="time-slot" onclick="selectTimeSlot(this)" data-time="13:00~13:30">13:00-13:30</div>
-        <div class="time-slot" onclick="selectTimeSlot(this)" data-time="13:30~14:00">13:30-14:00</div>
-        <div class="time-slot" onclick="selectTimeSlot(this)" data-time="14:00~14:30">14:00-14:30</div>
-        <div class="time-slot" onclick="selectTimeSlot(this)" data-time="14:30~15:00">14:30~15:00</div>
-        <div class="time-slot" onclick="selectTimeSlot(this)" data-time="15:00~15:30">15:00~15:30</div>
-        <div class="time-slot" onclick="selectTimeSlot(this)" data-time="15:30~16:00">15:30~16:00</div>
-        <div class="time-slot" onclick="selectTimeSlot(this)" data-time="16:00~16:30">16:00~16:30</div>
-        <div class="time-slot" onclick="selectTimeSlot(this)" data-time="16:30~17:00">16:30~17:00</div>
-        <div class="time-slot" onclick="selectTimeSlot(this)" data-time="17:00~17:30">17:00~17:30</div>
-        <div class="time-slot" onclick="selectTimeSlot(this)" data-time="17:30~18:00">17:30~18:00</div>
+        <div class="time-slot" onclick="selectTimeSlot(this)" data-time="09:00~10:00">09:00-10:00</div>
+        <div class="time-slot" onclick="selectTimeSlot(this)" data-time="10:00~11:00">10:00-11:00</div>
+        <div class="time-slot" onclick="selectTimeSlot(this)" data-time="11:00~12:00">11:00-12:00</div>
+        <div class="time-slot" onclick="selectTimeSlot(this)" data-time="13:00~14:00">13:00-14:00</div>
+        <div class="time-slot" onclick="selectTimeSlot(this)" data-time="14:00~15:00">14:00-15:00</div>
+        <div class="time-slot" onclick="selectTimeSlot(this)" data-time="15:00~16:00">15:00-16:00</div>
+        <div class="time-slot" onclick="selectTimeSlot(this)" data-time="16:00~17:00">16:00-17:00</div>
+        <div class="time-slot" onclick="selectTimeSlot(this)" data-time="17:00~18:00">17:00-18:00</div>
+        <div class="time-slot" onclick="selectTimeSlot(this)" data-time="18:00~19:00">18:00-19:00</div>
+        <div class="time-slot" onclick="selectTimeSlot(this)" data-time="19:00~20:00">19:00-20:00</div>
       </div>
     </div>
     <div style="text-align: center; margin-top: 40px;">
@@ -143,7 +145,7 @@
 <!-- 예약 검색 화면 -->
 <div id="status-screen" class="screen">
   <h2 style="margin-bottom:30px; text-align:center; color:#333;">🔍 예약 검색</h2>
-  
+
   <!-- 검색 폼 -->
   <div style="background:#f8f9fa; padding:25px; border-radius:15px; margin-bottom:30px;">
     <h3 style="margin-bottom:20px; color:#333; text-align:center;">예약 정보 검색</h3>
@@ -165,7 +167,7 @@
       <button class="btn btn-secondary" onclick="clearSearch()" style="margin-right: 10px;">🔄 초기화</button>
     </div>
   </div>
-  
+
   <!-- 검색 결과 -->
   <div id="search-results" style="display:none;">
     <h3 style="margin-bottom:20px; color:#333; text-align:center;">검색 결과</h3>
@@ -184,14 +186,14 @@
 
   <!-- 시설별 예약 현황 화면 -->
 <div id="all-status-screen" class="screen">
-  
+
   <!-- 시설 선택 섹션 -->
   <div id="status-facility-select-section" class="status-section active">
     <div style="text-align:center; margin-bottom:30px;">
       <p style="font-size:1.2em; color:#555; margin-bottom:10px;">현황을 조회할 시설을 선택해주세요</p>
       <p style="font-size:0.9em; color:#777;">특정 시설을 선택하거나 "전체 보기"를 선택하여 모든 시설의 현황을 확인할 수 있습니다</p>
     </div>
-    
+
     <div class="facilities-grid">
       <div class="facility-card" onclick="selectStatusFacility(this)">
         <div class="facility-icon">🕹️</div>
@@ -228,7 +230,7 @@
   <div class="facility-desc">단일 공간</div>
 </div>
     </div>
-    
+
     <!-- 전체 보기 버튼 -->
     <div style="text-align:center; margin-top:30px;">
       <button class="btn btn-primary" onclick="showAllFacilitiesStatus()" style="max-width:200px;">
@@ -251,12 +253,12 @@
         </button>
       </div>
     </div>
-    
+
     <!-- 타임테이블 컨테이너 -->
     <div class="status-grid">
       <!-- JavaScript로 동적 생성됨 -->
     </div>
-    
+
     <!-- 범례 -->
     <div style="margin-top:20px; padding:15px; background:#f8f9fa; border-radius:10px;">
       <h4 style="margin:0 0 10px 0; color:#333;">✅ 예약했어요 ✅</h4>
@@ -292,14 +294,14 @@
     <button onclick="changeAdminPasswordPrompt()" class="btn btn-secondary" style="width:48%;">비밀번호 변경</button>
   </div>
 </div>
-  
+
 </body>
 </html>
 
 <!-- 다운로드 옵션 선택 모달 (기존 관리자 모달 다음에 추가) -->
 <div id="download-modal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:25px; border-radius:15px; box-shadow:0 0 20px rgba(0,0,0,0.3); z-index:1000; min-width:300px;">
   <h3 style="text-align:center; margin-bottom:20px; color:#333;">📥 다운로드 형식 선택</h3>
-  
+
   <div style="display:flex; flex-direction:column; gap:12px;">
     <button onclick="downloadAsExcel(); hideDownloadModal();" class="btn btn-primary" style="width:100%; padding:20px 12px;">
       📊 Excel 파일 (.xls)
@@ -307,9 +309,9 @@
     <button onclick="downloadAsText(); hideDownloadModal();" class="btn btn-tertiary" style="width:100%; padding:20px 12px;">
       📝 텍스트 파일 (.txt)
     </button>
-    
+
   </div>
-  
+
   <div style="text-align:center; margin-top:15px;">
     <button onclick="hideDownloadModal()" style="background:#dc3545; color:white; border:none; padding:8px 16px; border-radius:8px; cursor:pointer;">
       취소
@@ -341,3 +343,4 @@
 </script>
 </body>
 </html>
+~
