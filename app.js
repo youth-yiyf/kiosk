@@ -1,4 +1,4 @@
-/ Firebase DB 객체 생성 (최상단에서 한 번만)
+// Firebase DB 객체 생성 (최상단에서 한 번만)
 const db = firebase.database();
 
 // 예약 저장
