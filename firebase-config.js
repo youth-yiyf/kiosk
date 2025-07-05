@@ -1,14 +1,14 @@
-// Firebase 웹 앱 초기화 정보 (Firebase 콘솔에서 복사한 값으로 바꾸세요)
-const firebaseConfig = {
-  apiKey: "AIzaSyBnW7copyPKtw-t_I3nCCyK5h5yZyUKtcA",
+// firebase-config.js (Firebase v8 기준)
+var firebaseConfig = {
+  apiKey: "AIzaSyBnIv7coqpPKtw-t_I3nCCyK5h5yZUktcA",
   authDomain: "youthreservationapp.firebaseapp.com",
   databaseURL: "https://youthreservationapp-default-rtdb.firebaseio.com",
   projectId: "youthreservationapp",
-  storageBucket: "youthreservationapp.firebasestorage.app",
-  messagingSenderId: "205168190902",
-  appId: "1:205168190902:web:0156a544807a9479870d17",
-  measurementId: "G-18GLC0NZX7"
+  storageBucket: "youthreservationapp.appspot.com",
+  messagingSenderId: "205168109902",
+  appId: "1:205168109902:web:0156a544807a9479870d17",
+  measurementId: "G-18GLC0NZXT"
 };
 
+// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-const db = firebase.database(); // Realtime Database 객체
