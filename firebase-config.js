@@ -1,4 +1,4 @@
-// firebase-config.js (Firebase v8 기준)
+// firebase-config.js (Firebase SDK v8 기준)
 var firebaseConfig = {
   apiKey: "AIzaSyBnIv7coqpPKtw-t_I3nCCyK5h5yZUktcA",
   authDomain: "youthreservationapp.firebaseapp.com",
