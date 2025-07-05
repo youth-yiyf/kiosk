@@ -1,7 +1,7 @@
-// Firebase Realtime DB 참조
+// Firebase DB 객체 생성
 const db = firebase.database();
 
-// 예약 정보 저장
+// 예약 저장 함수
 function saveReservation() {
   const name = document.getElementById("user-name").value;
   const birth = document.getElementById("user-birth").value;
@@ -28,13 +28,13 @@ function saveReservation() {
   });
 }
 
-// 예약 완료 시 호출
+// 예약 완료
 function completeReservation() {
   saveReservation();
   showScreen("success-screen");
 }
 
-// 실시간 예약 목록 렌더링 (검색 결과 등)
+// 검색 결과 렌더링
 function renderReservationList(snapshot) {
   const data = snapshot.val();
   const listContainer = document.getElementById("reservation-list");
@@ -53,7 +53,7 @@ function renderReservationList(snapshot) {
   }
 }
 
-// 예약 검색 (이름 + 생년월일 + 전화번호 일치)
+// 예약 검색
 function searchReservations() {
   const name = document.getElementById("search-name").value;
   const birth = document.getElementById("search-birth").value;
@@ -75,6 +75,7 @@ function searchReservations() {
   });
 }
 
+// 기타 유틸리티
 function clearSearch() {
   document.getElementById("search-name").value = "";
   document.getElementById("search-birth").value = "";
@@ -83,7 +84,6 @@ function clearSearch() {
   document.getElementById("reservation-list").innerHTML = "";
 }
 
-// 선택 값 저장용 전역 변수
 let selectedFacility = null;
 let selectedFacilityNumber = null;
 let selectedTimeSlot = null;
