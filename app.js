@@ -86,7 +86,7 @@ function clearSearch() {
 
 let selectedFacility = null;
 let selectedFacilityNumber = null;
-let selectedTimeSlot = null;
+let selectedTime = null;
 
 function selectFacility(el) {
   selectedFacility = el.querySelector(".facility-name").textContent;
