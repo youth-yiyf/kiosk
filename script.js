@@ -2,7 +2,7 @@ let currentScreen = 'main-screen';
 let screenHistory = [];
 let selectedFacility = '';
 let selectedFacilityNumber = '';
-let selectedTime = '';
+let selectedTimeslots = '';
 let selectedStatusFacility = '';
 
 // ✅ 날짜 자동 초기화 체크
