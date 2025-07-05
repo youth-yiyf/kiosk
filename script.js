@@ -1,9 +1,12 @@
+// 화면 상태 관리
 let currentScreen = 'main-screen';
 let screenHistory = [];
-let selectedFacility = '';
-let selectedFacilityNumber = '';
-let selectedTime = '';
-let selectedStatusFacility = '';
+
+// 예약 관련 전역 변수
+let selectedFacility = null;
+let selectedFacilityNumber = null;
+let selectedTime = null;
+let selectedStatusFacility = null;
 
 // ✅ 날짜 자동 초기화 체크
 const todayDateStr = new Date().toLocaleDateString('ko-KR');
