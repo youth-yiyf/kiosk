@@ -1,12 +1,9 @@
-// 화면 상태 관리
 let currentScreen = 'main-screen';
 let screenHistory = [];
-
-// 예약 관련 전역 변수
-let selectedFacility = null;
-let selectedFacilityNumber = null;
-let selectedTime = null;
-let selectedStatusFacility = null;
+let selectedFacility = '';
+let selectedFacilityNumber = '';
+let selectedTime = '';
+let selectedStatusFacility = '';
 
 // ✅ 날짜 자동 초기화 체크
 const todayDateStr = new Date().toLocaleDateString('ko-KR');
@@ -125,12 +122,24 @@ function selectFacility(element) {
   };
   selectedFacility = facilityNameMap[name] || name;
   
-  if (selectedFacility === '댄스\n연습실' || selectedFacility === '강의실') {
     selectedFacilityNumber = ''; // 번호 없음
-    showScreen('datetime-screen'); // 바로 날짜/시간 선택 화면으로 이동
+  // ✅ 시설 유형에 따라 다음 화면 분기
+  if (selectedFacility === '댄스\n연습실' || selectedFacility === '강의실') {
+    showScreen('datetime-screen');
   } else {
-    showScreen('facility-number-screen'); // 기존대로 번호 선택 화면으로 이동
+    showScreen('facility-number-screen'); // 그 외 시설은 방 번호 선택
   }
+}
+
+function goToDateTimeScreen() {
+  if (
+    (selectedFacility !== '댄스\n연습실' && selectedFacility !== '강의실') &&
+    !selectedFacilityNumber
+  ) {
+    alert("이용 공간을 선택해주세요.");
+    return;
+  }
+  showScreen('datetime-screen');
 }
 
 // 시설별 번호를 동적으로 생성
