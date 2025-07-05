@@ -10,6 +10,5 @@ const firebaseConfig = {
   measurementId: "G-18GLC0NZX7"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database(); // Realtime Database 객체
