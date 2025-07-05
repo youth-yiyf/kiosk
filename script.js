@@ -1,9 +1,12 @@
+// 화면 상태 관리
 let currentScreen = 'main-screen';
 let screenHistory = [];
-let selectedFacility = '';
-let selectedFacilityNumber = '';
-let selectedTime = '';
-let selectedStatusFacility = '';
+
+// 예약 관련 전역 변수
+let selectedFacility = null;
+let selectedFacilityNumber = null;
+let selectedTime = null;
+let selectedStatusFacility = null;
 
 // ✅ 날짜 자동 초기화 체크
 const todayDateStr = new Date().toLocaleDateString('ko-KR');
@@ -35,16 +38,16 @@ function resetReservationsDirectly() {
   // 데이터 초기화
   localStorage.removeItem('reservations');
   reservations = [];
-
+  
   alert("✅ 모든 예약이 초기화되었습니다.");
-
+  
   // 현재 화면 즉시 새로고침
   if (currentScreen === 'status-screen') {
     loadReservationStatus();
   } else if (currentScreen === 'all-status-screen') {
     loadAllStatus();
   }
-
+  
   // 추가: 강제로 화면 새로고침을 한번 더 시도
   setTimeout(() => {
     if (currentScreen === 'status-screen') {
@@ -61,7 +64,7 @@ function showScreen(screenId) {
   currentScreen = screenId;
   document.getElementById(screenId).classList.add('active');
   updateBackButton();
-
+  
   if (screenId === "user-info-screen") {
     clearUserInputs();
   } else if (screenId === 'facility-number-screen') { // 새롭게 추가
@@ -88,7 +91,7 @@ function goBack() {
     }
     return;
   }
-
+  
   if (screenHistory.length > 0) {
     document.getElementById(currentScreen).classList.remove('active');
     currentScreen = screenHistory.pop();
@@ -100,7 +103,7 @@ function goBack() {
 function updateBackButton() {
   const backBtn = document.querySelector('.back-btn');
   const homeBtn = document.querySelector('.home-btn');
-
+  
   if (currentScreen === 'main-screen') {
     backBtn.style.display = 'none';
     homeBtn.style.display = 'none';
@@ -121,7 +124,7 @@ function selectFacility(element) {
     '댄스연습실': '댄스\n연습실'
   };
   selectedFacility = facilityNameMap[name] || name;
-
+  
   if (selectedFacility === '댄스\n연습실' || selectedFacility === '강의실') {
     selectedFacilityNumber = ''; // 번호 없음
     showScreen('datetime-screen'); // 바로 날짜/시간 선택 화면으로 이동
@@ -165,13 +168,13 @@ function showAllFacilitiesStatus() {
   selectedStatusFacility = ''; // 선택된 시설 초기화
   document.getElementById('status-facility-select-section').classList.remove('active');
   document.getElementById('status-timetable-section').classList.add('active');
-
+  
   // 헤더 업데이트
   document.getElementById('selected-facility-title').textContent = '📊 전체 시설 예약 현황';
   document.getElementById('selected-facility-subtitle').textContent = new Date().toLocaleDateString('ko-KR', {
     year: 'numeric', month: 'long', day: 'numeric', weekday: 'short'
   });
-
+  
   loadAllStatus();
 }
 
@@ -180,7 +183,7 @@ function goBackToFacilitySelect() {
   document.getElementById('status-timetable-section').classList.remove('active');
   document.getElementById('status-facility-select-section').classList.add('active');
   selectedStatusFacility = '';
-
+  
   // 선택된 시설 카드 초기화
   document.querySelectorAll('#status-facility-select-section .facility-card').forEach(card => {
     card.classList.remove('selected');
@@ -198,7 +201,7 @@ function selectStatusFacility(element) {
   document.getElementById('status-timetable-section').classList.add('active');
 
   // 헤더 업데이트
-  document.getElementById('selected-facility-title').textContent = `📅 ${selectedStatusFacility} 예약 현황`;
+  document.getElementById('selected-facility-title').textContent = 📅 ${selectedStatusFacility} 예약 현황;
   document.getElementById('selected-facility-subtitle').textContent = new Date().toLocaleDateString('ko-KR', {
     year: 'numeric', month: 'long', day: 'numeric', weekday: 'short'
   });
@@ -222,7 +225,7 @@ function updateTimeSlotAvailability() {
   timeSlots.forEach(slot => {
     const timeData = slot.getAttribute('data-time');
     slot.classList.remove('unavailable', 'selected');
-
+    
     // 현재 선택된 시설과 번호에 대한 예약이 있는지 확인
     const isReserved = reservations.some(r => 
       r.facility === selectedFacility && 
@@ -230,7 +233,7 @@ function updateTimeSlotAvailability() {
       r.date === today && 
       r.time === timeData
     );
-
+    
     if (isReserved) {
       slot.classList.add('unavailable');
     }
@@ -253,11 +256,9 @@ function completeReservation() {
 
   // 댄스연습실과 강의실은 번호가 없으므로 검증 조건 수정
   const hasRequiredInfo = userName && userBirth && userPhone && selectedFacility && selectedTime;
-  const hasFacilityNumber = selectedFacilityNumber || (cleanFacility === '댄스연습실' || cleanFacility === '강의실');
-  
   const hasFacilityNumber = selectedFacilityNumber || (selectedFacility === '댄스연습실' || selectedFacility === '댄스\n연습실' || selectedFacility === '강의실');
   console.log('검증 결과:', { hasRequiredInfo, hasFacilityNumber });
-
+  
   if (!hasRequiredInfo || !hasFacilityNumber) {
     alert('모든 정보를 입력해주세요.');
     return;
@@ -278,7 +279,7 @@ function completeReservation() {
   console.log('예약 객체:', reservation);
 
   reservations.push(reservation);
-
+  
   // existingReservations 사용 제거 - 각 예약이 독립적으로 관리됨
   saveToLocalStorage();
   console.log('success-screen으로 이동 시도');
@@ -289,44 +290,44 @@ function completeReservation() {
 
 function updateSuccessScreen(facility, date, time) {
   console.log('updateSuccessScreen 호출:', { facility, date, time, selectedFacilityNumber });
-
+  
   const successScreen = document.getElementById('success-screen');
   console.log('success-screen 요소:', successScreen);
-
+  
   const infoDiv = successScreen.querySelector('div[style*="background:#f8f9fa"]');
   console.log('infoDiv 요소:', infoDiv);
-
+  
   // 댄스연습실과 강의실은 번호가 없으므로 표시 방식 수정
-  const facilityDisplay = selectedFacilityNumber ? `${facility} ${selectedFacilityNumber}` : facility;
+  const facilityDisplay = selectedFacilityNumber ? ${facility} ${selectedFacilityNumber} : facility;
   console.log('facilityDisplay:', facilityDisplay);
-
-  infoDiv.innerHTML = `
+  
+  infoDiv.innerHTML = 
     <p><strong>시설:</strong> ${facilityDisplay}</p>
     <p><strong>날짜:</strong> ${date}</p>
     <p><strong>시간:</strong> ${time}</p>
-  `;
-
+  ;
+  
   console.log('updateSuccessScreen 완료');
 }
 
 function loadReservationStatus() {
   const reservationList = document.getElementById('reservation-list');
-
+  
   // 강제로 HTML 초기화
   reservationList.innerHTML = '';
-
+  
   if (reservations.length === 0) {
-    reservationList.innerHTML = `<div class="no-reservations">📝 아직 예약된 시설이 없습니다.<br>새로운 예약을 만들어보세요!</div>`;
+    reservationList.innerHTML = <div class="no-reservations">📝 아직 예약된 시설이 없습니다.<br>새로운 예약을 만들어보세요!</div>;
   } else {
     let html = '';
     reservations.forEach(r => {
-      html += `<div class="reservation-item">
+      html += <div class="reservation-item">
         <h3>🏢 ${r.facility} ${r.facilityNumber}</h3>
         <p><strong>👤 예약자:</strong> ${r.name}</p>
         <p><strong>📅 날짜:</strong> ${r.date}</p>
         <p><strong>⏰ 시간:</strong> ${r.time}</p>
         <p><strong>📞 연락처:</strong> ${r.phone}</p>
-      </div>`;
+      </div>;
     });
     reservationList.innerHTML = html;
   }
@@ -338,7 +339,7 @@ function loadAllStatus() {
 
   // 오늘 날짜 가져오기
   const today = new Date().toLocaleDateString('ko-KR');
-
+  
   // 시간 슬롯 정의 (09:00~20:00)
   const timeSlots = [
     '09:00~10:00', '10:00~11:00', '11:00~12:00', 
@@ -362,21 +363,21 @@ function loadAllStatus() {
     : allFacilities;
 
   // 타임테이블 생성
-  let html = `<div class="status-table-container">`;
-  html += `<table class="status-table">`;
-
+  let html = <div class="status-table-container">;
+  html += <table class="status-table">;
+  
   // 헤더 생성
-  html += `<thead><tr><th>시간</th>`;
+  html += <thead><tr><th>시간</th>;
   facilitiesToShow.forEach(facility => {
-    html += `<th>${facility.name}</th>`;
+    html += <th>${facility.name}</th>;
   });
-  html += `</tr></thead>`;
-
+  html += </tr></thead>;
+  
   // 본문 생성
-  html += `<tbody>`;
+  html += <tbody>;
   timeSlots.forEach(timeSlot => {
-    html += `<tr><td>${timeSlot}</td>`;
-
+    html += <tr><td>${timeSlot}</td>;
+    
     facilitiesToShow.forEach(facility => {
       if (facility.numbers.length > 0) {
         // 번호가 있는 시설 (닌텐도, 플레이스테이션, 노래방, 보드게임)
@@ -394,14 +395,14 @@ function loadAllStatus() {
             reservedNumbers.push(numberOnly);
           }
         });
-
+        
         if (reservedNumbers.length > 0) {
           const numberElements = reservedNumbers.map(num => 
-            `<span class="reserved-number">${num}</span>`
+            <span class="reserved-number">${num}</span>
           ).join('');
-          html += `<td class="reserved">${numberElements}</td>`;
+          html += <td class="reserved">${numberElements}</td>;
         } else {
-          html += `<td></td>`;
+          html += <td></td>;
         }
       } else {
         // 번호가 없는 시설 (댄스연습실, 강의실)
@@ -410,17 +411,17 @@ function loadAllStatus() {
           r.date === today && 
           r.time === timeSlot
         );
-
+        
         if (isReserved) {
-          html += `<td class="reserved"><span class="reserved-number">예약</span></td>`;
+          html += <td class="reserved"><span class="reserved-number">예약</span></td>;
         } else {
-          html += `<td></td>`;
+          html += <td></td>;
         }
       }
     });
-    html += `</tr>`;
+    html += </tr>;
   });
-  html += `</tbody></table></div>`;
+  html += </tbody></table></div>;
 
   statusGrid.innerHTML = html;
 }
@@ -539,12 +540,12 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
-
+  
   // 모달 외부 클릭시 닫기
   document.addEventListener('click', function(e) {
     const modal = document.getElementById('admin-modal');
     const resetBtn = document.querySelector('.btn-reset');
-
+    
     if (modal && modal.style.display === 'block' && 
         !modal.contains(e.target) && 
         e.target !== resetBtn) {
@@ -558,9 +559,9 @@ function downloadAsCSV() {
     alert("다운로드할 예약 데이터가 없습니다.");
     return;
   }
-
+  
   const headers = ['이름', '생년월일', '전화번호', '시설', '시설 번호', '날짜', '시간', '예약ID'];
-
+  
    const csvData = reservations.map(r => [
     r.name,
     r.birth,
@@ -571,16 +572,16 @@ function downloadAsCSV() {
     r.time,
     r.id
   ]);
-
+  
   const csvContent = [headers, ...csvData]
-    .map(row => row.map(field => `"${field}"`).join(','))
+    .map(row => row.map(field => "${field}").join(','))
     .join('\n');
-
+  
   const BOM = '\uFEFF';
   const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
-
+  
    const today = new Date().toLocaleDateString('ko-KR').replace(/\./g, '').replace(/\s/g, '');
-  downloadFile(blob, `예약현황_${today}.csv`);
+  downloadFile(blob, 예약현황_${today}.csv);
 }
 
 function downloadAsExcel() {
@@ -588,8 +589,8 @@ function downloadAsExcel() {
     alert("다운로드할 예약 데이터가 없습니다.");
     return;
   }
-
-    let htmlTable = `
+  
+    let htmlTable = 
     <table border="1">
       <thead>
         <tr>
@@ -604,10 +605,10 @@ function downloadAsExcel() {
         </tr>
       </thead>
       <tbody>
-  `;
-
+  ;
+  
     reservations.forEach(r => {
-    htmlTable += `
+    htmlTable += 
       <tr>
         <td>${r.name}</td>
         <td>${r.birth}</td>
@@ -618,20 +619,20 @@ function downloadAsExcel() {
         <td>${r.time}</td>
         <td>${r.id}</td>
       </tr>
-    `;
+    ;
   });
 
-  htmlTable += `
+  htmlTable += 
       </tbody>
     </table>
-  `;
-
+  ;
+  
     const blob = new Blob([htmlTable], { 
     type: 'application/vnd.ms-excel;charset=utf-8;' 
   });
-
+  
   const today = new Date().toLocaleDateString('ko-KR').replace(/\./g, '').replace(/\s/g, '');
-  downloadFile(blob, `예약현황_${today}.xls`);
+  downloadFile(blob, 예약현황_${today}.xls);
 }
 
 function downloadAsText() {
@@ -641,24 +642,24 @@ function downloadAsText() {
   }
 
   const today = new Date().toLocaleDateString('ko-KR');
-  let textContent = `=== 흥덕청소년문화의집 예약 현황 ===\n`;
-  textContent += `다운로드 일시: ${today}\n`;
-  textContent += `총 예약 수: ${reservations.length}건\n\n`;
+  let textContent = === 흥덕청소년문화의집 예약 현황 ===\n;
+  textContent += 다운로드 일시: ${today}\n;
+  textContent += 총 예약 수: ${reservations.length}건\n\n;
 
   reservations.forEach((r, index) => {
-    textContent += `[${index + 1}] 예약 정보\n`;
-    textContent += `  - 이름: ${r.name}\n`;
-    textContent += `  - 생년월일: ${r.birth}\n`;
-    textContent += `  - 전화번호: ${r.phone}\n`;
-    textContent += `  - 시설: ${r.facility}\n`;
-    textContent += `  - 날짜: ${r.date}\n`;
-    textContent += `  - 시간: ${r.time}\n`;
-    textContent += `  - 예약ID: ${r.id}\n\n`;
+    textContent += [${index + 1}] 예약 정보\n;
+    textContent +=   - 이름: ${r.name}\n;
+    textContent +=   - 생년월일: ${r.birth}\n;
+    textContent +=   - 전화번호: ${r.phone}\n;
+    textContent +=   - 시설: ${r.facility}\n;
+    textContent +=   - 날짜: ${r.date}\n;
+    textContent +=   - 시간: ${r.time}\n;
+    textContent +=   - 예약ID: ${r.id}\n\n;
   });
 
   const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8;' });
   const todayStr = new Date().toLocaleDateString('ko-KR').replace(/\./g, '').replace(/\s/g, '');
-  downloadFile(blob, `예약현황_${todayStr}.txt`);
+  downloadFile(blob, 예약현황_${todayStr}.txt);
 }
 
 function downloadAsJSON() {
@@ -675,9 +676,9 @@ function downloadAsJSON() {
 
   const jsonContent = JSON.stringify(exportData, null, 2);
   const blob = new Blob([jsonContent], { type: 'application/json;charset=utf-8;' });
-
+  
   const today = new Date().toLocaleDateString('ko-KR').replace(/\./g, '').replace(/\s/g, '');
-  downloadFile(blob, `예약데이터_${today}.json`);
+  downloadFile(blob, 예약데이터_${today}.json);
 }
 
 function downloadTableAsImage() {
@@ -693,7 +694,7 @@ function downloadAllStatusAsHTML() {
   const timeSlots = ['09:00-10:00','10:00-11:00','11:00-12:00','13:00-14:00','14:00-15:00','15:00-16:00','16:00-17:00','17:00-18:00','18:00-19:00','19:00-20:00'];
   const facilities = ['닌텐도','플레이스테이션','노래방','보드게임','댄스연습실','강의실'];
 
-  let htmlContent = `
+  let htmlContent = 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -728,21 +729,21 @@ function downloadAllStatusAsHTML() {
             </tr>
         </thead>
         <tbody>
-  `;
+  ;
 
   timeSlots.forEach(time => {
-    htmlContent += `<tr><td class="time-cell">${time}</td>`;
+    htmlContent += <tr><td class="time-cell">${time}</td>;
     facilities.forEach(fac => {
       const isReserved = reservations.some(r => r.facility === fac && r.time === time);
       const r = reservations.find(r => r.facility === fac && r.time === time);
       const cellClass = isReserved ? 'reserved' : 'available';
       const cellContent = r?.name || (isReserved ? '예약됨' : '-');
-      htmlContent += `<td class="${cellClass}">${cellContent}</td>`;
+      htmlContent += <td class="${cellClass}">${cellContent}</td>;
     });
-    htmlContent += `</tr>`;
+    htmlContent += </tr>;
   });
 
-  htmlContent += `
+  htmlContent += 
         </tbody>
     </table>
     <div style="margin-top: 30px; text-align: center; color: #666; font-size: 0.9em;">
@@ -750,11 +751,11 @@ function downloadAllStatusAsHTML() {
     </div>
 </body>
 </html>
-  `;
+  ;
 
   const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8;' });
   const todayFileName = today.toLocaleDateString('ko-KR').replace(/\./g, '').replace(/\s/g, '');
-  downloadFile(blob, `전체예약현황_${todayFileName}.html`);
+  downloadFile(blob, 전체예약현황_${todayFileName}.html);
 }
 
 function downloadFile(blob, filename) {
@@ -784,7 +785,7 @@ function setupDownloadModalEvents() {
   document.addEventListener('click', function(e) {
     const modal = document.getElementById('download-modal');
     const downloadBtn = document.querySelector('.btn-download');
-
+    
     if (modal && modal.style.display === 'block' && 
         !modal.contains(e.target) && 
         e.target !== downloadBtn) {
@@ -804,22 +805,22 @@ function searchReservations() {
   const searchName = document.getElementById('search-name').value.trim();
   const searchBirth = document.getElementById('search-birth').value;
   const searchPhone = document.getElementById('search-phone').value.trim();
-
+  
   // 최소한 하나의 검색 조건이 필요
   if (!searchName && !searchBirth && !searchPhone) {
     alert('검색할 정보를 하나 이상 입력해주세요.');
     return;
   }
-
+  
   // 검색 조건에 맞는 예약 필터링
   const filteredReservations = reservations.filter(r => {
     const nameMatch = !searchName || r.name.toLowerCase().includes(searchName.toLowerCase());
     const birthMatch = !searchBirth || r.birth === searchBirth;
     const phoneMatch = !searchPhone || r.phone.includes(searchPhone);
-
+    
     return nameMatch && birthMatch && phoneMatch;
   });
-
+  
   // 검색 결과 표시
   displaySearchResults(filteredReservations);
 }
@@ -828,24 +829,24 @@ function searchReservations() {
 function displaySearchResults(results) {
   const searchResults = document.getElementById('search-results');
   const reservationList = document.getElementById('reservation-list');
-
+  
   if (results.length === 0) {
-    reservationList.innerHTML = `
+    reservationList.innerHTML = 
       <div style="text-align: center; padding: 40px; color: #666;">
         <div style="font-size: 3em; margin-bottom: 20px;">🔍</div>
         <h3>검색 결과가 없습니다</h3>
         <p>입력하신 정보와 일치하는 예약을 찾을 수 없습니다.</p>
         <p>검색 조건을 다시 확인해주세요.</p>
       </div>
-    `;
+    ;
   } else {
-    let html = `<div style="margin-bottom: 20px; text-align: center; color: #333;">
+    let html = <div style="margin-bottom: 20px; text-align: center; color: #333;">
       <strong>총 ${results.length}개의 예약을 찾았습니다.</strong>
-    </div>`;
-
+    </div>;
+    
     results.forEach(r => {
-      const facilityDisplay = r.facilityNumber ? `${r.facility} ${r.facilityNumber}` : r.facility;
-      html += `<div class="reservation-item" style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+      const facilityDisplay = r.facilityNumber ? ${r.facility} ${r.facilityNumber} : r.facility;
+      html += <div class="reservation-item" style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
         <h3 style="color: #ff8c00; margin-bottom: 15px;">🏢 ${facilityDisplay}</h3>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
           <div><strong>👤 예약자:</strong> ${r.name}</div>
@@ -856,12 +857,12 @@ function displaySearchResults(results) {
         <div style="text-align: right;">
           <button class="btn btn-secondary" onclick="deleteReservation(${r.id})" style="padding: 5px 10px; font-size: 0.8em;">🗑️ 삭제</button>
         </div>
-      </div>`;
+      </div>;
     });
-
+    
     reservationList.innerHTML = html;
   }
-
+  
   searchResults.style.display = 'block';
 }
 
@@ -880,10 +881,10 @@ function deleteReservation(reservationId) {
     if (index !== -1) {
       reservations.splice(index, 1);
       saveToLocalStorage();
-
+      
       // 현재 검색 결과 다시 표시
       searchReservations();
-
+      
       alert('예약이 삭제되었습니다.');
     }
   }
@@ -894,26 +895,26 @@ function validateUserInfo() {
   const userName = document.getElementById('user-name').value.trim();
   const userBirth = document.getElementById('user-birth').value;
   const userPhone = document.getElementById('user-phone').value.trim();
-
+  
   // 각 필드별 검증
   if (!userName) {
     alert('이름을 입력해주세요.');
     document.getElementById('user-name').focus();
     return;
   }
-
+  
   if (!userBirth) {
     alert('생년월일을 선택해주세요.');
     document.getElementById('user-birth').focus();
     return;
   }
-
+  
   if (!userPhone) {
     alert('전화번호를 입력해주세요.');
     document.getElementById('user-phone').focus();
     return;
   }
-
+  
   // 전화번호 형식 검증 (숫자 9~11자리)
   const phoneDigits = userPhone.replace(/[^0-9]/g, "");
 if (phoneDigits.length < 9 || phoneDigits.length > 11) {
@@ -921,7 +922,7 @@ if (phoneDigits.length < 9 || phoneDigits.length > 11) {
   document.getElementById('user-phone').focus();
   return;
 }
-
+  
   // 모든 검증을 통과하면 다음 화면으로 이동
   showUserInfoConfirmScreen();
 }
@@ -933,11 +934,11 @@ function showUserInfoConfirmScreen() {
   const userPhone = document.getElementById('user-phone').value.trim();
 
   // 정보 표시
-  document.getElementById('confirm-info-box').innerHTML = `
+  document.getElementById('confirm-info-box').innerHTML = 
     <p><strong>이름:</strong> ${userName}</p>
     <p><strong>생년월일:</strong> ${userBirth}</p>
     <p><strong>전화번호:</strong> ${userPhone}</p>
-  `;
+  ;
   showScreen('user-info-confirm-screen');
 }
 
