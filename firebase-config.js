@@ -1,6 +1,6 @@
-// firebase-config.js (Firebase SDK v8 기준)
+// firebase-config.js (Firebase SDK v8 방식)
 var firebaseConfig = {
-  apiKey: "AIzaSyBnIv7coqpPKtw-t_I3nCCyK5h5yZUktcA",
+  apiKey: "AIzaSyBnW7copyPKtw-t_I3nCCyK5h5yZUktcA",
   authDomain: "youthreservationapp.firebaseapp.com",
   databaseURL: "https://youthreservationapp-default-rtdb.firebaseio.com",
   projectId: "youthreservationapp",
@@ -10,5 +10,5 @@ var firebaseConfig = {
   measurementId: "G-18GLC0NZXT"
 };
 
-// Initialize Firebase
+// Firebase 초기화 (v8 방식)
 firebase.initializeApp(firebaseConfig);
