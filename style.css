@@ -420,11 +420,12 @@ body {
   background: #f8f9fa;
   border: 2px solid #e0e0e0;
   border-radius: 12px;
-  padding: 12px;
+  padding: 20px;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: 500;
+  font-size: 1.5em; /* 글씨 크기 ↑ */
 }
 
 .time-slot:hover {
@@ -436,7 +437,7 @@ body {
   background: linear-gradient(135deg, #ff6b6b, #feca57);
   color: white;
   border-color: #ff6b6b;
-  transform: scale(1.02);
+  transform: scale(1.03);
 }
 
 .time-slot.unavailable {
