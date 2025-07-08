@@ -528,7 +528,7 @@ body {
   position: relative;
   width: 100%;
   height: calc(100vh - 100px);
-  background-image: url('https://i.imgur.com/6BQAkjc.jpeg');
+  background-image: url('https://i.imgur.com/QquZnoK.jpeg');
   background-size: cover;
   background-position: center 0px;
   display: flex;
@@ -550,7 +550,7 @@ body {
   
   .welcome-emoji {
     position: relative;
-    margin-top: -60px; 
+    margin-top: -10px; 
     margin-left: 90px;
     font-size: 1em; /* 필요시 크기도 조정 */
   }
