@@ -530,7 +530,7 @@ body {
   height: calc(100vh - 100px);
   background-image: url('https://i.imgur.com/6BQAkjc.jpeg');
   background-size: cover;
-  background-position: center 10px;
+  background-position: center -30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -548,7 +548,7 @@ body {
     position: relative;
     font-size: 1.4em;
     padding: 0 20px;
-    margin-top: -20px; 
+    margin-top: -30px; 
   }
 
   .success-emoji {
