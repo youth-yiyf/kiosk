@@ -538,7 +538,7 @@ body {
 
   .welcome-buttons {
   position: absolute;
-  bottom: 140px;
+  bottom: 160px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;             /* 반드시 있어야 함 */
@@ -550,7 +550,7 @@ body {
   
   .welcome-emoji {
     position: relative;
-    margin-top: -40px; 
+    margin-top: -60px; 
     margin-left: 90px;
     font-size: 1em; /* 필요시 크기도 조정 */
   }
