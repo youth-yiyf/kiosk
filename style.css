@@ -603,6 +603,26 @@ body {
   }
  }
 
+ .timetable {
+    min-width: unset; /* 최소 너비 제한 해제 */
+    font-size: 0.7em;
+  }
+
+  .timetable th,
+  .timetable td {
+    padding: 6px 4px; /* 패딩 축소 */
+    font-size: 0.7em;  /* 폰트 축소 */
+  }
+}
+
+.screen {
+  display: none;
+  padding: 0px;
+  min-height: calc(100vh - 140px);
+  overflow-y: auto; /* ✅ 스크롤 가능하도록 */
+  padding-bottom: 100px; /* ✅ 하단 콘텐츠 여유 공간 확보 */
+}
+
 @media (width: 1600px) and (height: 2560px) {
  .container {
     width: 100%;
